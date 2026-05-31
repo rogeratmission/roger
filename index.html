@@ -12,11 +12,23 @@
     <p id="answer"></p>
 
     <script>
-        function answerQuestion() {
-            let q = document.getElementById("question").value;
-            document.getElementById("answer").innerText =
-                "You asked: " + q;
-        }
-    </script>
+function answerQuestion() {
+    let q = document.getElementById("question").value.toLowerCase();
+
+    let answer = "I don't know that yet.";
+
+    if (q.includes("hello")) {
+        answer = "Hello! Nice to meet you.";
+    }
+    else if (q.includes("ai")) {
+        answer = "AI means Artificial Intelligence.";
+    }
+    else if (q.includes("who are you")) {
+        answer = "I am your AI Study Assistant.";
+    }
+
+    document.getElementById("answer").innerText = answer;
+}
+</script>
 </body>
 </html>
