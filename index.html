@@ -4,7 +4,19 @@
     <title>My AI Assistant</title>
 </head>
 <body>
-    <h1>My AI Assistant</h1>
-    <p>Hello! This is my first AI project.</p>
+    <h1>My AI Study Assistant</h1>
+
+    <input type="text" id="question" placeholder="Ask a question">
+    <button onclick="answerQuestion()">Ask</button>
+
+    <p id="answer"></p>
+
+    <script>
+        function answerQuestion() {
+            let q = document.getElementById("question").value;
+            document.getElementById("answer").innerText =
+                "You asked: " + q;
+        }
+    </script>
 </body>
 </html>
