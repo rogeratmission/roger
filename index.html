@@ -179,16 +179,6 @@ speak(reply);
 function getResponse(text) {
 
 let q = text.toLowerCase().trim();
-if (q === "what do you know") {
-    let keys = Object.keys(learnedFacts);
-
-    if (keys.length === 0) {
-        return "I don't know anything yet.";
-    }
-
-    return "I know: " + keys.join(", ");
-}
-    
     if (q.startsWith("teach:")) {
 
         let lesson = text.substring(6).trim();
@@ -210,6 +200,17 @@ if (q.startsWith("forget:")) {
     }
 
     return "I don't know that.";
+if (q === "what do you know") {
+    let keys = Object.keys(learnedFacts);
+
+    if (keys.length === 0) {
+        return "I don't know anything yet.";
+    }
+
+    return "I know: " + keys.join(", ");
+}
+    
+    
 }
         if (parts.length === 2) {
 
