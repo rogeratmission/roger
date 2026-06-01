@@ -193,7 +193,24 @@ if (q === "what do you know") {
 
         let lesson = text.substring(6).trim();
         let parts = lesson.split("=");
+if (q.startsWith("forget:")) {
 
+    let key = q.substring(7).trim();
+
+    if (learnedFacts[key]) {
+
+        delete learnedFacts[key];
+
+        localStorage.setItem(
+            "learnedFacts",
+            JSON.stringify(learnedFacts)
+        );
+
+        return "I forgot: " + key;
+    }
+
+    return "I don't know that.";
+}
         if (parts.length === 2) {
 
             let key = parts[0].trim().toLowerCase();
