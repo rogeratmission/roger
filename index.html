@@ -1,105 +1,186 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My AI Assistant</title>
+<meta charset="UTF-8">
+<title>AI Assistant</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+}
 
-        .chat-box {
-            width: 400px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
+.chat-container{
+    width:90%;
+    max-width:700px;
+    height:80vh;
+    background:white;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.1);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
 
-        h1 {
-            text-align: center;
-            color: #333;
-        }
+.header{
+    background:#0078ff;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 
-        input {
-            width: 75%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
+#chat{
+    flex:1;
+    padding:15px;
+    overflow-y:auto;
+    background:#f7f7f7;
+}
 
-        button {
-            padding: 10px 15px;
-            border: none;
-            background: #0078ff;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-        }
+.message{
+    max-width:75%;
+    padding:10px 15px;
+    margin:10px 0;
+    border-radius:15px;
+}
 
-        button:hover {
-            background: #005fd1;
-        }
+.user{
+    background:#0078ff;
+    color:white;
+    margin-left:auto;
+}
 
-        #answer {
-            margin-top: 20px;
-            padding: 10px;
-            background: #eef3ff;
-            border-radius: 8px;
-            min-height: 40px;
-        }
-    </style>
+.ai{
+    background:#e5e5ea;
+    color:black;
+}
+
+.input-area{
+    display:flex;
+    padding:10px;
+    border-top:1px solid #ddd;
+}
+
+input{
+    flex:1;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+button{
+    margin-left:10px;
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#0078ff;
+    color:white;
+}
+
+.dark{
+    background:#121212;
+}
+
+.dark .chat-container{
+    background:#1e1e1e;
+}
+
+.dark #chat{
+    background:#181818;
+}
+
+.dark .ai{
+    background:#333;
+    color:white;
+}
+</style>
 </head>
 
 <body>
 
-<div class="chat-box">
-    <h1>AI Assistant</h1>
+<div class="chat-container">
 
-    <div id="chat" style="
-        height:300px;
-        overflow-y:auto;
-        border:1px solid #ddd;
-        border-radius:8px;
-        padding:10px;
-        margin-bottom:10px;">
+<div class="header">
+    AI Assistant
+    <button onclick="toggleDark()">🌙</button>
+</div>
+
+<div id="chat">
+    <div class="message ai">
+        Hello! Ask me anything.
     </div>
+</div>
 
-    <input type="text" id="question" placeholder="Ask anything...">
-    <button onclick="answerQuestion()">Send</button>
+<div class="input-area">
+    <input id="question" placeholder="Type your message...">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
 </div>
 
 <script>
-function answerQuestion() {
-    let q = document.getElementById("question").value;
+function sendMessage(){
 
-    if(q.trim() === "") return;
+let input=document.getElementById("question");
+let text=input.value.trim();
 
-    let chat = document.getElementById("chat");
+if(text==="") return;
 
-    chat.innerHTML +=
-        "<p><b>You:</b> " + q + "</p>";
+let chat=document.getElementById("chat");
 
-    chat.innerHTML +=
-        "<p><b>AI:</b> I received your message.</p>";
+chat.innerHTML +=
+'<div class="message user">'+text+'</div>';
 
-    document.getElementById("question").value = "";
+let reply="I am still learning.";
 
-    chat.scrollTop = chat.scrollHeight;
+let q=text.toLowerCase();
+
+if(q.includes("hello"))
+reply="Hello! Nice to meet you.";
+
+else if(q.includes("who are you"))
+reply="I am your AI Assistant.";
+
+else if(q.includes("ai"))
+reply="AI stands for Artificial Intelligence.";
+
+else if(q.includes("bye"))
+reply="Goodbye!";
+
+chat.innerHTML +=
+'<div class="message ai">'+reply+'</div>';
+
+input.value="";
+chat.scrollTop=chat.scrollHeight;
 }
 
 document.getElementById("question")
-.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        answerQuestion();
-    }
+.addEventListener("keypress",function(event){
+if(event.key==="Enter"){
+sendMessage();
+}
 });
+
+function toggleDark(){
+document.body.classList.toggle("dark");
+}
 </script>
-    </body>
+
+</body>
 </html>
+      
+
+
+   
+  
