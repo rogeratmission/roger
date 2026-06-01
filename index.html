@@ -128,53 +128,127 @@ button{
 </div>
 
 </div>
-
 <script>
-function sendMessage(){
 
-let input=document.getElementById("question");
-let text=input.value.trim();
+const jokes = [
+    "Why did the programmer quit his job? Because he didn't get arrays.",
+    "Why do Java developers wear glasses? Because they can't C#.",
+    "Why was the computer cold? It left its Windows open."
+];
 
-if(text==="") return;
+loadChat();
 
-let chat=document.getElementById("chat");
+function sendMessage() {
 
-chat.innerHTML +=
-'<div class="message user">'+text+'</div>';
+    let input = document.getElementById("question");
+    let text = input.value.trim();
 
-let reply="I am still learning.";
+    if (text === "") return;
 
-let q=text.toLowerCase();
+    addMessage(text, "user");
 
-if(q.includes("hello"))
-reply="Hello! Nice to meet you.";
+    let reply = getResponse(text);
 
-else if(q.includes("who are you"))
-reply="I am your AI Assistant.";
+    setTimeout(() => {
+        addMessage(reply, "ai");
+        saveChat();
+    }, 300);
 
-else if(q.includes("ai"))
-reply="AI stands for Artificial Intelligence.";
-
-else if(q.includes("bye"))
-reply="Goodbye!";
-
-chat.innerHTML +=
-'<div class="message ai">'+reply+'</div>';
-
-input.value="";
-chat.scrollTop=chat.scrollHeight;
+    input.value = "";
 }
 
-document.getElementById("question")
-.addEventListener("keypress",function(event){
-if(event.key==="Enter"){
-sendMessage();
+function getResponse(text) {
+
+    let q = text.toLowerCase();
+
+    if (q.includes("hello") || q.includes("hi"))
+        return "Hello! How can I help you today?";
+
+    if (q.includes("who are you"))
+        return "I am your AI Assistant.";
+
+    if (q.includes("time"))
+        return "Current time: " + new Date().toLocaleTimeString();
+
+    if (q.includes("date"))
+        return "Today's date: " + new Date().toLocaleDateString();
+
+    if (q.includes("joke"))
+        return jokes[Math.floor(Math.random() * jokes.length)];
+
+    if (q.includes("bye"))
+        return "Goodbye!";
+
+    let math = text.match(/^(\d+)\s*([\+\-\*\/])\s*(\d+)$/);
+
+    if (math) {
+
+        let a = Number(math[1]);
+        let op = math[2];
+        let b = Number(math[3]);
+
+        if (op === "+") return "Answer: " + (a + b);
+        if (op === "-") return "Answer: " + (a - b);
+        if (op === "*") return "Answer: " + (a * b);
+        if (op === "/") return "Answer: " + (a / b);
+    }
+
+    const facts = {
+        "what is ai":
+            "AI stands for Artificial Intelligence.",
+        "what is earth":
+            "Earth is the third planet from the Sun.",
+        "what is water":
+            "Water is H₂O, a molecule made of hydrogen and oxygen.",
+        "what is github":
+            "GitHub is a platform used to store and manage code."
+    };
+
+    if (facts[q]) return facts[q];
+
+    return "I don't know that yet. Teach me by adding more facts to my code!";
 }
+
+function addMessage(text, type) {
+
+    let chat = document.getElementById("chat");
+
+    chat.innerHTML +=
+        `<div class="message ${type}">${text}</div>`;
+
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function saveChat() {
+    localStorage.setItem(
+        "chatHistory",
+        document.getElementById("chat").innerHTML
+    );
+}
+
+function loadChat() {
+
+    let saved =
+        localStorage.getItem("chatHistory");
+
+    if (saved) {
+        document.getElementById("chat").innerHTML =
+            saved;
+    }
+}
+
+document
+.getElementById("question")
+.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
 });
 
-function toggleDark(){
-document.body.classList.toggle("dark");
+function toggleDark() {
+    document.body.classList.toggle("dark");
 }
+
 </script>
 
 </body>
