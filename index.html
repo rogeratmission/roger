@@ -62,20 +62,44 @@
 <div class="chat-box">
     <h1>AI Assistant</h1>
 
+    <div id="chat" style="
+        height:300px;
+        overflow-y:auto;
+        border:1px solid #ddd;
+        border-radius:8px;
+        padding:10px;
+        margin-bottom:10px;">
+    </div>
+
     <input type="text" id="question" placeholder="Ask anything...">
     <button onclick="answerQuestion()">Send</button>
-
-    <div id="answer">Hello! Ask me something.</div>
 </div>
 
 <script>
 function answerQuestion() {
     let q = document.getElementById("question").value;
 
-    document.getElementById("answer").innerText =
-        "You asked: " + q;
-}
-</script>
+    if(q.trim() === "") return;
 
-</body>
+    let chat = document.getElementById("chat");
+
+    chat.innerHTML +=
+        "<p><b>You:</b> " + q + "</p>";
+
+    chat.innerHTML +=
+        "<p><b>AI:</b> I received your message.</p>";
+
+    document.getElementById("question").value = "";
+
+    chat.scrollTop = chat.scrollHeight;
+}
+
+document.getElementById("question")
+.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        answerQuestion();
+    }
+});
+</script>
+    </body>
 </html>
