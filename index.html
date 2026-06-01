@@ -148,7 +148,9 @@ const jokes = [
     "I used to be afraid of speed bumps. I'm slowly getting over them.",
     "I asked my computer for a joke. It said: '404 Joke Not Found.'"
 ];
-
+    
+let learnedFacts =
+    JSON.parse(localStorage.getItem("learnedFacts")) || {};
    
     
 
@@ -176,7 +178,51 @@ speak(reply);
 }
 
 function getResponse(text) {
+if (q.startsWith("teach:")) {
 
+    let lesson = text.substring(6).trim();
+
+    let parts = lesson.split("=");
+
+    if (parts.length === 2) {
+
+        let key = parts[0].trim().toLowerCase();
+        let value = parts[1].trim();
+
+        learnedFacts[key] = value;
+
+        localStorage.setItem(
+            "learnedFacts",
+            JSON.stringify(learnedFacts)
+        );
+
+        return "Got it! I learned that " + key + " = " + value;
+    }
+
+    return "Use: Teach: question = answer";
+}if (q.startsWith("teach:")) {
+
+    let lesson = text.substring(6).trim();
+
+    let parts = lesson.split("=");
+
+    if (parts.length === 2) {
+
+        let key = parts[0].trim().toLowerCase();
+        let value = parts[1].trim();
+
+        learnedFacts[key] = value;
+
+        localStorage.setItem(
+            "learnedFacts",
+            JSON.stringify(learnedFacts)
+        );
+
+        return "Got it! I learned that " + key + " = " + value;
+    }
+
+    return "Use: Teach: question = answer";
+}
     let q = text.toLowerCase();
 
     if (q.includes("hello") || q.includes("hi"))
@@ -223,7 +269,9 @@ function getResponse(text) {
     };
 
     if (facts[q]) return facts[q];
-
+if (learnedFacts[q]) {
+    return learnedFacts[q];
+}
     return "I don't know that yet. Teach me by adding more facts to my code!";
 }
 
