@@ -121,11 +121,12 @@ button{
         Hello! Ask me anything.
     </div>
 </div>
-
 <div class="input-area">
     <input id="question" placeholder="Type your message...">
+    <button onclick="startListening()">🎤</button>
     <button onclick="sendMessage()">Send</button>
 </div>
+
 
 </div>
 <script>
@@ -166,7 +167,8 @@ function sendMessage() {
     let reply = getResponse(text);
 
     setTimeout(() => {
-        addMessage(reply, "ai");
+      addMessage(reply, "ai");
+speak(reply);
         saveChat();
     }, 300);
 
@@ -260,7 +262,45 @@ document
         sendMessage();
     }
 });
+function speak(text) {
 
+    let speech = new SpeechSynthesisUtterance(text);
+
+    speech.lang = "en-US";
+    speech.rate = 1;
+    speech.pitch = 1;
+
+    speechSynthesis.speak(speech);
+}
+
+function startListening() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+        alert("Speech recognition is not supported in this browser.");
+        return;
+    }
+
+    let recognition = new SpeechRecognition();
+
+    recognition.lang = "en-US";
+
+    recognition.onresult = function(event) {
+
+        let text =
+            event.results[0][0].transcript;
+
+        document.getElementById("question").value =
+            text;
+
+        sendMessage();
+    };
+
+    recognition.start();
+}
 function toggleDark() {
     document.body.classList.toggle("dark");
 }
