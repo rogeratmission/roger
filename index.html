@@ -176,54 +176,32 @@ speak(reply);
 
     input.value = "";
 }
-
 function getResponse(text) {
-if (q.startsWith("teach:")) {
 
-    let lesson = text.substring(6).trim();
+    let q = text.toLowerCase().trim();
 
-    let parts = lesson.split("=");
+    if (q.startsWith("teach:")) {
 
-    if (parts.length === 2) {
+        let lesson = text.substring(6).trim();
+        let parts = lesson.split("=");
 
-        let key = parts[0].trim().toLowerCase();
-        let value = parts[1].trim();
+        if (parts.length === 2) {
 
-        learnedFacts[key] = value;
+            let key = parts[0].trim().toLowerCase();
+            let value = parts[1].trim();
 
-        localStorage.setItem(
-            "learnedFacts",
-            JSON.stringify(learnedFacts)
-        );
+            learnedFacts[key] = value;
 
-        return "Got it! I learned that " + key + " = " + value;
+            localStorage.setItem(
+                "learnedFacts",
+                JSON.stringify(learnedFacts)
+            );
+
+            return "Got it! I learned that " + key + " = " + value;
+        }
+
+        return "Use: Teach: question = answer";
     }
-
-    return "Use: Teach: question = answer";
-}if (q.startsWith("teach:")) {
-
-    let lesson = text.substring(6).trim();
-
-    let parts = lesson.split("=");
-
-    if (parts.length === 2) {
-
-        let key = parts[0].trim().toLowerCase();
-        let value = parts[1].trim();
-
-        learnedFacts[key] = value;
-
-        localStorage.setItem(
-            "learnedFacts",
-            JSON.stringify(learnedFacts)
-        );
-
-        return "Got it! I learned that " + key + " = " + value;
-    }
-
-    return "Use: Teach: question = answer";
-}
-    let q = text.toLowerCase();
 
     if (q.includes("hello") || q.includes("hi"))
         return "Hello! How can I help you today?";
@@ -246,7 +224,6 @@ if (q.startsWith("teach:")) {
     let math = text.match(/^(\d+)\s*([\+\-\*\/])\s*(\d+)$/);
 
     if (math) {
-
         let a = Number(math[1]);
         let op = math[2];
         let b = Number(math[3]);
@@ -258,22 +235,21 @@ if (q.startsWith("teach:")) {
     }
 
     const facts = {
-        "what is ai":
-            "AI stands for Artificial Intelligence.",
-        "what is earth":
-            "Earth is the third planet from the Sun.",
-        "what is water":
-            "Water is H₂O, a molecule made of hydrogen and oxygen.",
-        "what is github":
-            "GitHub is a platform used to store and manage code."
+        "what is ai": "AI stands for Artificial Intelligence.",
+        "what is earth": "Earth is the third planet from the Sun.",
+        "what is water": "Water is H₂O, a molecule made of hydrogen and oxygen.",
+        "what is github": "GitHub is a platform used to store and manage code."
     };
 
     if (facts[q]) return facts[q];
-if (learnedFacts[q]) {
-    return learnedFacts[q];
-}
+
+    if (learnedFacts[q]) {
+        return learnedFacts[q];
+    }
+
     return "I don't know that yet. Teach me by adding more facts to my code!";
 }
+
 
 function addMessage(text, type) {
 
