@@ -2,33 +2,80 @@
 <html>
 <head>
     <title>My AI Assistant</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .chat-box {
+            width: 400px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        input {
+            width: 75%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background: #0078ff;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #005fd1;
+        }
+
+        #answer {
+            margin-top: 20px;
+            padding: 10px;
+            background: #eef3ff;
+            border-radius: 8px;
+            min-height: 40px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>My AI Study Assistant</h1>
 
-    <input type="text" id="question" placeholder="Ask a question">
-    <button onclick="answerQuestion()">Ask</button>
+<div class="chat-box">
+    <h1>AI Assistant</h1>
 
-    <p id="answer"></p>
+    <input type="text" id="question" placeholder="Ask anything...">
+    <button onclick="answerQuestion()">Send</button>
 
-    <script>
+    <div id="answer">Hello! Ask me something.</div>
+</div>
+
+<script>
 function answerQuestion() {
-    let q = document.getElementById("question").value.toLowerCase();
+    let q = document.getElementById("question").value;
 
-    let answer = "I don't know that yet.";
-
-    if (q.includes("hello")) {
-        answer = "Hello! Nice to meet you.";
-    }
-    else if (q.includes("ai")) {
-        answer = "AI means Artificial Intelligence.";
-    }
-    else if (q.includes("who are you")) {
-        answer = "I am your AI Study Assistant.";
-    }
-
-    document.getElementById("answer").innerText = answer;
+    document.getElementById("answer").innerText =
+        "You asked: " + q;
 }
 </script>
+
 </body>
 </html>
