@@ -177,8 +177,9 @@ speak(reply);
     input.value = "";
 }
 function getResponse(text) {
-if (q === "what do you know") {
 
+let q = text.toLowerCase().trim();
+if (q === "what do you know") {
     let keys = Object.keys(learnedFacts);
 
     if (keys.length === 0) {
@@ -187,8 +188,7 @@ if (q === "what do you know") {
 
     return "I know: " + keys.join(", ");
 }
-    let q = text.toLowerCase().trim();
-
+    
     if (q.startsWith("teach:")) {
 
         let lesson = text.substring(6).trim();
