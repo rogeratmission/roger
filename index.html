@@ -6,11 +6,7 @@
 <title>AI Assistant</title>
 
 <style>
-    background: linear-gradient(
-    135deg,
-    #667eea,
-    #764ba2
-);
+   
 body{
     font-family:Arial,sans-serif;
     background:linear-gradient(
@@ -66,14 +62,16 @@ body{
     }
 }
 .message{
-  
-    animation: pop 0.3s ease;
     max-width:75%;
+    width:fit-content;
     padding:10px 15px;
     margin:10px 0;
     border-radius:15px;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
+    word-break:break-word;
+    animation:pop 0.3s ease;
 }
-
 .user{
     background:#0078ff;
     color:white;
@@ -128,17 +126,17 @@ button{
 </head>
 
 <body>
-
 <div class="chat-container">
 
 <div class="header">
     AI Assistant
     <button onclick="clearChat()">🗑️</button>
     <button onclick="toggleDark()">🌙</button>
-     </div>
+</div>
 </div>
 
 <div id="chat">
+
     <div class="message ai">
         Hello! Ask me anything.
     </div>
