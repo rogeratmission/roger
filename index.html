@@ -149,7 +149,7 @@ button{
 
 </div>
 
-</div>
+
 <script>
 const jokes = [
     "Why don't scientists trust atoms? Because they make up everything.",
@@ -198,11 +198,20 @@ let reply = getResponse(text);
 
 setTimeout(() => {
 
-    let msgs =
-        document.querySelectorAll(".ai");
+    let msgs = document.querySelectorAll(".ai");
+    let last = msgs[msgs.length - 1];
 
-    msgs[msgs.length - 1].textContent =
-        reply;
+    let time = new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    last.innerHTML = `
+        ${reply}
+        <div style="font-size:11px;opacity:0.6;margin-top:5px;">
+            ${time}
+        </div>
+    `;
 
     speak(reply);
     saveChat();
@@ -360,8 +369,19 @@ function addMessage(text, type) {
 
     let chat = document.getElementById("chat");
 
-    chat.innerHTML +=
-        `<div class="message ${type}">${text}</div>`;
+    let time = new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    chat.innerHTML += `
+        <div class="message ${type}">
+            ${type === "user" ? "👤 " : "🤖 "}${text}
+            <div style="font-size:11px;opacity:0.6;margin-top:5px;">
+                ${time}
+            </div>
+        </div>
+    `;
 
     chat.scrollTop = chat.scrollHeight;
 }
