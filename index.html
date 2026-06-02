@@ -179,6 +179,22 @@ speak(reply);
 function getResponse(text) {
 
 let q = text.toLowerCase().trim();
+    if (q.startsWith("my ") && q.includes(" is ")) {
+
+    let parts = text.split(" is ");
+
+    let key = parts[0].trim().toLowerCase();
+    let value = parts.slice(1).join(" is ").trim();
+
+    learnedFacts[key] = value;
+
+    localStorage.setItem(
+        "learnedFacts",
+        JSON.stringify(learnedFacts)
+    );
+
+    return "I'll remember that.";
+}
 
 if (q.startsWith("teach:")) {
 
