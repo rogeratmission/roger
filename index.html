@@ -126,26 +126,27 @@ button{
 </head>
 
 <body>
+
 <div class="chat-container">
 
-<div class="header">
-    AI Assistant
-    <button onclick="clearChat()">🗑️</button>
-    <button onclick="toggleDark()">🌙</button>
-
-</div>
-
-<div id="chat">
-
-    <div class="message ai">
-        Hello! Ask me anything.
+    <div class="header">
+        AI Assistant
+        <button onclick="clearChat()">🗑️</button>
+        <button onclick="toggleDark()">🌙</button>
     </div>
-</div>
-<div class="input-area">
-    <input id="question" placeholder="Type your message...">
-    <button onclick="startListening()">🎤</button>
-    <button onclick="sendMessage()">Send</button>
-</div>
+
+    <div id="chat">
+        <div class="message ai">
+            Hello! Ask me anything.
+        </div>
+    </div>
+
+    <div class="input-area">
+        <input id="question" placeholder="Type your message...">
+        <button onclick="startListening()">🎤</button>
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
 </div>
 
 </div>
