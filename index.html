@@ -179,10 +179,30 @@ speak(reply);
 function getResponse(text) {
 
 let q = text.toLowerCase().trim();
-    if (q.startsWith("teach:")) {
 
-        let lesson = text.substring(6).trim();
-        let parts = lesson.split("=");
+if (q.startsWith("teach:")) {
+
+    let lesson = text.substring(6).trim();
+    let parts = lesson.split("=");
+
+    if (parts.length === 2) {
+
+        let key = parts[0].trim().toLowerCase();
+        let value = parts[1].trim();
+
+        learnedFacts[key] = value;
+
+        localStorage.setItem(
+            "learnedFacts",
+            JSON.stringify(learnedFacts)
+        );
+
+        return "Got it! I learned that " + key + " = " + value;
+    }
+
+    return "Use: Teach: question = answer";
+}
+
 if (q.startsWith("forget:")) {
 
     let key = q.substring(7).trim();
@@ -200,7 +220,10 @@ if (q.startsWith("forget:")) {
     }
 
     return "I don't know that.";
+}
+
 if (q === "what do you know") {
+
     let keys = Object.keys(learnedFacts);
 
     if (keys.length === 0) {
@@ -209,27 +232,6 @@ if (q === "what do you know") {
 
     return "I know: " + keys.join(", ");
 }
-    
-    
-}
-        if (parts.length === 2) {
-
-            let key = parts[0].trim().toLowerCase();
-            let value = parts[1].trim();
-
-            learnedFacts[key] = value;
-
-            localStorage.setItem(
-                "learnedFacts",
-                JSON.stringify(learnedFacts)
-            );
-
-            return "Got it! I learned that " + key + " = " + value;
-        }
-
-        return "Use: Teach: question = answer";
-    }
-
     if (q.includes("hello") || q.includes("hi"))
         return "Hello! How can I help you today?";
 
