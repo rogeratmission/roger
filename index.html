@@ -166,13 +166,22 @@ function sendMessage() {
 
     addMessage(text, "user");
 
-    let reply = getResponse(text);
+  addMessage("AI is typing...", "ai");
 
-    setTimeout(() => {
-      addMessage(reply, "ai");
-speak(reply);
-        saveChat();
-    }, 300);
+let reply = getResponse(text);
+
+setTimeout(() => {
+
+    let msgs =
+        document.querySelectorAll(".ai");
+
+    msgs[msgs.length - 1].textContent =
+        reply;
+
+    speak(reply);
+    saveChat();
+
+}, 1000);
 
     input.value = "";
 }
@@ -195,7 +204,14 @@ let q = text.toLowerCase().trim();
 
     return "I'll remember that.";
 }
+if (q.startsWith("what is my ")) {
 
+    let key = q.replace("what is ", "");
+
+    if (learnedFacts[key]) {
+        return learnedFacts[key];
+    }
+}
 if (q.startsWith("teach:")) {
 
     let lesson = text.substring(6).trim();
@@ -249,7 +265,16 @@ if (q === "what do you know") {
     return "I know: " + keys.join(", ");
 }
     if (q.includes("hello") || q.includes("hi"))
-        return "Hello! How can I help you today?";
+        const greetings = [
+    "Hello! 👋",
+    "Hi there!",
+    "Nice to see you!",
+    "How can I help today?"
+];
+
+return greetings[
+    Math.floor(Math.random() * greetings.length)
+];
 
     if (q.includes("who are you"))
         return "I am your AI Assistant.";
