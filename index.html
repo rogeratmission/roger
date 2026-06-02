@@ -13,7 +13,11 @@
 );
 body{
     font-family:Arial,sans-serif;
-    background:#f4f6f9;
+    background:linear-gradient(
+        135deg,
+        #667eea,
+        #764ba2
+    );
     display:flex;
     justify-content:center;
     align-items:center;
@@ -43,8 +47,7 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    <button onclick="clearChat()">🗑️</button>
-}
+    }
 
 #chat{
     flex:1;
@@ -52,18 +55,18 @@ body{
     overflow-y:auto;
     background:#f7f7f7;
 }
-
-.message{
-    @keyframes pop {
+@keyframes pop {
     from {
-        opacity: 0;
-        transform: translateY(10px);
+        opacity:0;
+        transform:translateY(10px);
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+        opacity:1;
+        transform:translateY(0);
     }
 }
+.message{
+  
     animation: pop 0.3s ease;
     max-width:75%;
     padding:10px 15px;
@@ -130,7 +133,9 @@ button{
 
 <div class="header">
     AI Assistant
+    <button onclick="clearChat()">🗑️</button>
     <button onclick="toggleDark()">🌙</button>
+     </div>
 </div>
 
 <div id="chat">
