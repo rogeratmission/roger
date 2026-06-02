@@ -264,18 +264,19 @@ if (q === "what do you know") {
 
     return "I know: " + keys.join(", ");
 }
-    if (q.includes("hello") || q.includes("hi"))
-        const greetings = [
-    "Hello! 👋",
-    "Hi there!",
-    "Nice to see you!",
-    "How can I help today?"
-];
+  if (q.includes("hello") || q.includes("hi")) {
 
-return greetings[
-    Math.floor(Math.random() * greetings.length)
-];
+    const greetings = [
+        "Hello! 👋",
+        "Hi there!",
+        "Nice to see you!",
+        "How can I help today?"
+    ];
 
+    return greetings[
+        Math.floor(Math.random() * greetings.length)
+    ];
+}
     if (q.includes("who are you"))
         return "I am your AI Assistant.";
 
@@ -317,7 +318,15 @@ return greetings[
         return learnedFacts[q];
     }
 
-    return "I don't know that yet. Teach me by adding more facts to my code!";
+    if (q === "what is my name") {
+    return learnedFacts["my name"] || "I don't know your name yet.";
+}
+
+if (learnedFacts[q]) {
+    return learnedFacts[q];
+}
+
+return "I don't know that yet. Teach me by adding more facts to my code!";
 }
 
 
